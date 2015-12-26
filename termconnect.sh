@@ -22,6 +22,13 @@
 #    PGP: https://pgp.mit.edu/pks/lookup?op=get&search=0x8FF24099181CE01E
 
 # -------------------------------------------------------------------------------
+
+#Controllo se l'utente è root
+if [ “$(id -u)” != “0” ]; then
+tput setaf 1; tput bold; echo -e '\nQuesto script va avviato come root\n' 2>&1
+exit 1
+fi
+
 clear
 tput setaf 3; tput bold;
 echo '___________                  _________                                     __ '
