@@ -55,11 +55,13 @@ tput setaf 7; tput bold;
 read passphrase
 clear
 tput setaf 4; tput bold; echo "Mi connetto alla rete con SSID:" $ssid "Password:" $passphrase "su interfaccia" $wadapter
-wpa_passphrase $ssid $passphrase
+
 ip link set $wadapter down || { tput setaf 1; tput bold; echo -e "\nErrore: Qualcosa è andato storto..." ; exit 1; }
 iwconfig $wadapter mode Managed || { tput setaf 1; tput bold; echo -e "\nErrore: Qualcosa è andato storto..." ; exit 1; }
 ip link set $wadapter up || { tput setaf 1; tput bold; echo -e "\nErrore: Qualcosa è andato storto..." ; exit 1; }
+
 killall wpa_supplicant || { tput setaf 1; tput bold; echo -e "\nErrore: Qualcosa è andato storto..." ; exit 1; }
+
 wpa_supplicant -B -i $wadapter -dd -c <(wpa_passphrase $ssid $passphrase) || { tput setaf 1; tput bold; echo -e "\nErrore: Qualcosa è andato storto..." ; exit 1; }
 clear
 tput setaf 2; tput bold;
